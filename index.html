@@ -335,15 +335,6 @@
   }
   .comp-list span:last-child{ color:var(--paper-dim); font-family:'IBM Plex Mono', monospace; font-size:0.82rem; }
 
-  .media-slot{
-    margin-top:36px;
-    border:1px dashed var(--navy-line);
-    padding:40px;
-    text-align:center;
-    color:var(--paper-dim);
-    font-size:0.9rem;
-  }
-
   .ods-row{
     display:grid;
     grid-template-columns:repeat(2, 1fr);
@@ -376,34 +367,39 @@
     max-height:520px;
   }
 
-  .docs-list{
-    margin-top:8px;
-    border-top:1px solid var(--navy-line);
+  /* ============ DOCUMENTOS ============ */
+  .doc-block{
+    margin-top:32px;
   }
-  .doc-item{
+  .doc-block:first-of-type{ margin-top:8px; }
+  .doc-block-head{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    text-decoration:none;
-    color:var(--paper);
-    border-bottom:1px solid var(--navy-line);
-    padding:22px 6px;
-    transition:background .15s ease, padding-left .15s ease;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:12px;
   }
-  .doc-item:hover{ background:var(--navy-panel); padding-left:14px; }
-  .doc-item .doc-name{
-    font-size:1.05rem;
+  .doc-block-head .doc-name{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700;
+    font-size:1.3rem;
   }
-  .doc-item .doc-meta{
-    display:flex;
-    align-items:center;
-    gap:14px;
+  .doc-download{
     font-family:'IBM Plex Mono', monospace;
     font-size:0.78rem;
     color:var(--caution);
+    text-decoration:none;
     white-space:nowrap;
   }
+  .doc-download:hover{ text-decoration:underline; }
+  .doc-frame{
+    width:100%;
+    height:560px;
+    border:1px solid var(--navy-line);
+    background:var(--paper);
+  }
+  @media (max-width:700px){ .doc-frame{ height:420px; } }
 
   .team-row{
     display:flex;
@@ -444,13 +440,7 @@
     flex-wrap:wrap;
     gap:16px;
   }
-  .disclaimer{
-    margin-top:26px;
-    padding-top:26px;
-    border-top:1px solid var(--navy-line);
-    font-size:0.8rem;
-    max-width:70ch;
-  }
+
 </style>
 </head>
 <body>
@@ -475,6 +465,7 @@
 
 <div class="wrap">
 
+  <!-- ============ HERO ============ -->
   <section class="hero" style="border-bottom:none;">
     <div>
       <div class="kicker">PROYECTO FINAL — TICS · 11B</div>
@@ -493,6 +484,7 @@
     </div>
   </section>
 
+  <!-- ============ PROBLEMA ============ -->
   <section id="problema">
     <div class="head-row">
       <h2>El problema en el parque</h2>
@@ -503,6 +495,7 @@
     </div>
   </section>
 
+  <!-- ============ COMO FUNCIONA ============ -->
   <section id="funciona">
     <div class="head-row">
       <h2>Cómo funciona</h2>
@@ -527,6 +520,7 @@
     </div>
   </section>
 
+  <!-- ============ SIMULADOR ============ -->
   <section id="simulador">
     <div class="head-row">
       <h2>Pruébalo tú mismo</h2>
@@ -550,6 +544,7 @@
     </div>
   </section>
 
+  <!-- ============ CIRCUITO ============ -->
   <section id="circuito">
     <div class="head-row">
       <h2>El circuito</h2>
@@ -564,11 +559,13 @@
       <div><span>Lenguaje</span><span>C++ (Arduino IDE / Tinkercad)</span></div>
     </div>
 
-    <div class="media-slot">
-      Espacio reservado para las imágenes del circuito (captura de Tinkercad / foto física).
-    </div>
+    <!--
+      Agrega aquí tus imágenes del circuito, por ejemplo:
+      <img src="circuito-tinkercad.png" alt="Circuito Smart Ride Guard">
+    -->
   </section>
 
+  <!-- ============ ODS ============ -->
   <section id="ods">
     <div class="head-row">
       <h2>Objetivos de Desarrollo Sostenible</h2>
@@ -587,6 +584,7 @@
     </div>
   </section>
 
+  <!-- ============ PODCAST ============ -->
   <section id="podcast">
     <div class="head-row">
       <h2>Escucha el podcast</h2>
@@ -599,23 +597,31 @@
     </div>
   </section>
 
+  <!-- ============ DOCUMENTOS ============ -->
   <section id="documentos">
     <div class="head-row">
       <h2>Documentos del proyecto</h2>
     </div>
     <p class="lede">Investigación formal y documentación técnica que respaldan el proyecto.</p>
-    <div class="docs-list">
-      <a class="doc-item" href="Investigacion%20Formal%20SG%20tics%20final%201.docx" download>
+
+    <div class="doc-block">
+      <div class="doc-block-head">
         <span class="doc-name">Investigación formal — Smart Ride Guard</span>
-        <span class="doc-meta">.DOCX &nbsp;↓ Descargar</span>
-      </a>
-      <a class="doc-item" href="info%20.pdf" download>
+        <a class="doc-download" href="Investigacion%20Formal%20SG%20tics%20final%201.docx" download>↓ Descargar .docx</a>
+      </div>
+      <iframe class="doc-frame" src="Investigacion%20Formal%20SG%20tics%20final%201.pdf"></iframe>
+    </div>
+
+    <div class="doc-block">
+      <div class="doc-block-head">
         <span class="doc-name">Información complementaria</span>
-        <span class="doc-meta">.PDF &nbsp;↓ Descargar</span>
-      </a>
+        <a class="doc-download" href="info%20.pdf" download>↓ Descargar PDF</a>
+      </div>
+      <iframe class="doc-frame" src="info%20.pdf"></iframe>
     </div>
   </section>
 
+  <!-- ============ EQUIPO ============ -->
   <section id="equipo" style="border-bottom:none;">
     <div class="head-row">
       <h2>Equipo</h2>
@@ -644,7 +650,6 @@
       <div>Smart Ride Guard — Proyecto final de TICS, 11B</div>
       <div>Prototipo desarrollado para IRTRA Petapa</div>
     </div>
-    <p class="disclaimer">Este circuito es un prototipo escolar construido y probado en Tinkercad. No está instalado ni certificado para uso real dentro de un parque de atracciones; llevar una idea así a producción requeriría pruebas adicionales y equipo homologado.</p>
   </footer>
 
 </div>
