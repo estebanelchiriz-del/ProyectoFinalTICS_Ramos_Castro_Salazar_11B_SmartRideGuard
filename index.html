@@ -105,14 +105,14 @@
   }
   nav ul{
     display:flex;
-    gap:26px;
+    gap:22px;
     list-style:none;
     margin:0; padding:0;
     font-size:0.92rem;
   }
   nav a{text-decoration:none; color:var(--paper-dim);}
   nav a:hover{color:var(--caution);}
-  @media (max-width:640px){ nav ul{display:none;} }
+  @media (max-width:760px){ nav ul{display:none;} }
 
   .hero{
     padding-top:88px;
@@ -367,35 +367,43 @@
 
   .podcast-box{
     border:1px solid var(--navy-line);
-    background:var(--navy-panel);
-    padding:0;
+    background:#000;
     overflow:hidden;
   }
-  .podcast-placeholder{
-    padding:56px 30px;
-    text-align:center;
+  .podcast-box video{
+    width:100%;
+    display:block;
+    max-height:520px;
   }
-  .wave{
+
+  .docs-list{
+    margin-top:8px;
+    border-top:1px solid var(--navy-line);
+  }
+  .doc-item{
     display:flex;
-    justify-content:center;
-    gap:5px;
-    margin-bottom:24px;
-    height:46px;
-    align-items:flex-end;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    text-decoration:none;
+    color:var(--paper);
+    border-bottom:1px solid var(--navy-line);
+    padding:22px 6px;
+    transition:background .15s ease, padding-left .15s ease;
   }
-  .wave span{
-    width:5px;
-    background:var(--navy-line);
-    animation:wv 1.6s ease-in-out infinite;
+  .doc-item:hover{ background:var(--navy-panel); padding-left:14px; }
+  .doc-item .doc-name{
+    font-size:1.05rem;
   }
-  .wave span:nth-child(odd){ animation-delay:0.2s; }
-  .wave span:nth-child(3n){ animation-delay:0.4s; background:var(--caution); opacity:0.6;}
-  @keyframes wv{
-    0%,100%{ height:10px; }
-    50%{ height:44px; }
+  .doc-item .doc-meta{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--caution);
+    white-space:nowrap;
   }
-  .podcast-placeholder p{ color:var(--paper-dim); font-size:0.92rem; max-width:44ch; margin:0 auto; }
-  .podcast-box iframe{ width:100%; border:0; display:block; }
 
   .team-row{
     display:flex;
@@ -458,6 +466,7 @@
         <li><a href="#circuito">Circuito</a></li>
         <li><a href="#ods">ODS</a></li>
         <li><a href="#podcast">Podcast</a></li>
+        <li><a href="#documentos">Documentos</a></li>
         <li><a href="#equipo">Equipo</a></li>
       </ul>
     </nav>
@@ -555,10 +564,6 @@
       <div><span>Lenguaje</span><span>C++ (Arduino IDE / Tinkercad)</span></div>
     </div>
 
-    <!--
-      ESPACIO PARA TUS IMÁGENES DEL CIRCUITO
-      Reemplaza este bloque <div class="media-slot"> por tus <img src="ruta-a-tu-imagen.png" alt="Circuito Smart Ride Guard">
-    -->
     <div class="media-slot">
       Espacio reservado para las imágenes del circuito (captura de Tinkercad / foto física).
     </div>
@@ -586,7 +591,28 @@
     <div class="head-row">
       <h2>Escucha el podcast</h2>
     </div>
-    <div class="podcast-box" id="podcastBox">
+    <div class="podcast-box">
+      <video controls preload="metadata">
+        <source src="Podcast.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de este video.
+      </video>
+    </div>
+  </section>
+
+  <section id="documentos">
+    <div class="head-row">
+      <h2>Documentos del proyecto</h2>
+    </div>
+    <p class="lede">Investigación formal y documentación técnica que respaldan el proyecto.</p>
+    <div class="docs-list">
+      <a class="doc-item" href="Investigacion%20Formal%20SG%20tics%20final%201.docx" download>
+        <span class="doc-name">Investigación formal — Smart Ride Guard</span>
+        <span class="doc-meta">.DOCX &nbsp;↓ Descargar</span>
+      </a>
+      <a class="doc-item" href="info%20.pdf" download>
+        <span class="doc-name">Información complementaria</span>
+        <span class="doc-meta">.PDF &nbsp;↓ Descargar</span>
+      </a>
     </div>
   </section>
 
@@ -624,41 +650,6 @@
 </div>
 
 <script>
-  const PODCAST_URL = ""; // <-- pega tu link aquí, entre las comillas
-
-  function buildPodcastEmbed(url){
-    const box = document.getElementById('podcastBox');
-    if(!url){
-      box.innerHTML = `
-        <div class="podcast-placeholder">
-          <div class="wave">
-            ${Array.from({length:24}).map(()=>'<span></span>').join('')}
-          </div>
-          <p>Aquí se incrustará el podcast del proyecto. Pega el link de Spotify o YouTube en la variable <strong>PODCAST_URL</strong> dentro del archivo index.html.</p>
-        </div>`;
-      return;
-    }
-    let embedUrl = url;
-    let height = 180;
-
-    if(url.includes('spotify.com')){
-      embedUrl = url.replace('open.spotify.com/', 'open.spotify.com/embed/');
-      height = 232;
-    } else if(url.includes('youtube.com/watch')){
-      const id = new URL(url).searchParams.get('v');
-      embedUrl = `https://www.youtube.com/embed/${id}`;
-      height = 480;
-    } else if(url.includes('youtu.be/')){
-      const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
-      embedUrl = `https://www.youtube.com/embed/${id}`;
-      height = 480;
-    }
-
-    box.innerHTML = `<iframe src="${embedUrl}" height="${height}" allow="autoplay; encrypted-media" loading="lazy"></iframe>`;
-  }
-
-  buildPodcastEmbed(PODCAST_URL);
-
   const LIMITE = 50;
 
   const slider = document.getElementById('distSlider');
